@@ -1,3 +1,6 @@
+;; Faisal Alhazzaa
+;; CS360
+
 ;;
 ;; DO NOT REMOVE THESE TWO LINES
 ;;
@@ -8,33 +11,46 @@
 ;; Problem 1
 ;;
 
+
 (define (stream-pair-with f s)
-  'not-implemented)
+  (stream-map (lambda (x) (cons x (f x))) s))
+
 
 ;;
 ;; Problem 2
 ;;
 
 (define (stream-iterate f x)
-  'not-implemented)
-
+  (stream-cons x (stream-iterate f (f x))))
 ;;
 ;; Problem 3
 ;;
 
 (define (stream-zip xs ys)
-  'not-implemented)
+  (if (or (stream-empty? xs) (stream-empty? ys))
+      (stream)
+      (stream-cons (cons (stream-first xs) (stream-first ys))
+                   (stream-zip (stream-rest xs) (stream-rest ys)))))
+
 
 ;;
 ;; Problem 4
 ;;
 
 (define (cycle-streams xs ys)
-  'not-implemented)
+  (if (or (stream-empty? xs) (stream-empty? ys))
+      (stream)
+      (stream-cons (cons (stream-first xs) (stream-first ys))
+                   (stream-zip (stream-rest xs) (stream-rest ys)))))
 
 ;;
 ;; Problem 5
 ;;
 
-(define apply-count
-  'not-implemented)
+(define count 0)
+
+
+(define apply-count 
+    (lambda (f x)
+       (set! count (+ count 1))
+      (cons (f x) count)))
